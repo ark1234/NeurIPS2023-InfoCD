@@ -1,15 +1,15 @@
-# HyperCD
+# InfoCD
 
-The official repository of the paper "Hyperbolic Chamfer Distance for Point Cloud Completion" published at ICCV 2023
+The official repository of the paper "InfoCD: A Contrastive Chamfer Distance Loss for Point Cloud Completion" published at NeurIPS 2023
 ## UPDATE
 Our code and model weights will be released soon!!!
 
 
 ### UPDATE 
-We update SeedFormer + HyperCD in Aug 23th
+We update SeedFormer + InfoCD in Oct 13th
 
 
-## SeedFormer + HyperCD
+## SeedFormer + InfoCD
 
 ## Installation
 
@@ -91,13 +91,15 @@ Code is borrowed from SeedFormer, HyperCD loss can be found in loss_utils.py, Th
 ## Publication
 Please cite our papers if you use our idea or code:
 ```
-@InProceedings{Lin_2023_ICCV,
-    author    = {Lin, Fangzhou and Yue, Yun and Hou, Songlin and Yu, Xuechu and Xu, Yajun and Yamada, Kazunori D and Zhang, Ziming},
-    title     = {Hyperbolic Chamfer Distance for Point Cloud Completion},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    month     = {October},
-    year      = {2023},
-    pages     = {14595-14606}
+@inproceedings{
+lin2023infocd,
+title={InfoCD: A Contrastive Chamfer Distance Loss for Point Cloud Completion},
+author={Fangzhou Lin and Yue Yun and Ziming Zhang and Songlin Hou and Kazunori D Yamada and Vijaya Kolachalama and Venkatesh Saligrama},
+booktitle={Advances in Neural Information Processing Systems},
+editor={},
+year={2023},
+url={}
 }
+
 ```
 
