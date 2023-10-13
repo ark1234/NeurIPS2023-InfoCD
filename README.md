@@ -1,12 +1,14 @@
 # InfoCD
 
 The official repository of the paper "InfoCD: A Contrastive Chamfer Distance Loss for Point Cloud Completion" published at NeurIPS 2023
-## UPDATE
-Our code and model weights will be released soon!!!
+
 
 
 ![](images/idea.png) 
 *Illustration of comparison among CD, MI, and InfoCD with different numbers of samples.*
+
+## UPDATE
+Our code and model weights will be released soon!!!
 
 ### UPDATE 
 We update SeedFormer + InfoCD in Oct 13th
