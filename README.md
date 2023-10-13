@@ -5,7 +5,7 @@ The official repository of the paper "InfoCD: A Contrastive Chamfer Distance Los
 Our code and model weights will be released soon!!!
 
 
-![](images/idea-1e2.png) | ![](images/idea-1e3.png)
+![](images/idea.pdf) 
 *Illustration of comparison among CD, MI, and InfoCD with different numbers of samples.*
 
 ### UPDATE 
