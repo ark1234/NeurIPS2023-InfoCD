@@ -89,6 +89,7 @@ def get_loss(pcds_pred, partial, gt, sqrt=True):
 
 
 def get_loss1(pcds_pred, partial, gt, sqrt=True):
+# def get_loss_InfoV2(pcds_pred, partial, gt, sqrt=True):
     """loss function
     Args
         pcds_pred: List of predicted point clouds, order in [Pc, P1, P2, P3...]
@@ -107,16 +108,18 @@ def get_loss1(pcds_pred, partial, gt, sqrt=True):
     gt_c = fps_subsample(gt_1, Pc.shape[1])
 
     # cdc = CD(Pc, gt_c)
-    cdc = calc_cd_like_hyperV2(Pc, gt_c)
+    cdc = calc_cd_like_InfoV2(Pc, gt_c)
     # cd1 = CD(P1, gt_1)
-    cd1 = calc_cd_like_hyperV2(P1, gt_1)
+    cd1 = calc_cd_like_InfoV2(P1, gt_1)
     # cd2 = CD(P2, gt_2)
-    cd2 = calc_cd_like_hyperV2(P2, gt_2)
+    cd2 = calc_cd_like_InfoV2(P2, gt_2)
     # cd3 = CD(P3, gt)
-    cd3 = calc_cd_like_hyperV2(P3, gt)
+    cd3 = calc_cd_like_InfoV2(P3, gt)
 
     # partial_matching = PM(partial, P3)
-    partial_matching = calc_cd_one_side_like_hyperV2(partial, P3)
+    # partial_matching = calc_cd_one_side_like_hyperV2(partial, P3)
+    partial_matching = calc_cd_one_side_like_InfoV2(partial, P3)
+    
 
     loss_all = (cdc + cd1 + cd2 + cd3 + partial_matching) * 1e3
     losses = [cdc, cd1, cd2, cd3, partial_matching]
@@ -125,52 +128,36 @@ def get_loss1(pcds_pred, partial, gt, sqrt=True):
 
 
 
-def calc_cd_like_hyperV2(p1, p2):
-    d1, d2, _, _ = chamfer_dist(p1, p2)
-    # cham_loss = chamfer3D.dist_chamfer_3D.chamfer_3DDist()
-    # dist1, dist2, idx1, idx2 = cham_loss(array1, array2)
-    # dist1 = torch.clamp(dist1, min=1e-9)
-    # dist2 = torch.clamp(dist2, min=1e-9)
-    # d1 = torch.sqrt(dist1)
-    # d2 = torch.sqrt(dist2)
-    d1 = arcosh(1+ 1 * d1)
-    d2 = arcosh(1+ 1 * d2)
-    # print(d1.shape)
-    # print(d2.shape)
-
-    return torch.mean(d1) + torch.mean(d2)
+def calc_cd_like_InfoV2(p1, p2):
 
 
+    dist1, dist2, idx1, idx2 = chamfer_dist(p1, p2)
+    dist1 = torch.clamp(dist1, min=1e-9)
+    dist2 = torch.clamp(dist2, min=1e-9)
+    d1 = torch.sqrt(dist1)
+    d2 = torch.sqrt(dist2)
 
-def calc_cd_one_side_like_hyperV2(p1, p2):
-    d1, d2, _, _ = chamfer_dist(p1, p2)
-    # cham_loss = chamfer3D.dist_chamfer_3D.chamfer_3DDist()
-    # dist1, dist2, idx1, idx2 = cham_loss(array1, array2)
-    # dist1 = torch.clamp(dist1, min=1e-9)
-    # dist2 = torch.clamp(dist2, min=1e-9)
-    # d1 = torch.sqrt(dist1)
-    # d2 = torch.sqrt(dist2)
-    d1 = arcosh(1+ 1 * d1)
-    # d2 = arcosh(1+d2)
-    # print(d1.shape)
-    # print(d2.shape)
+    distances1 = - torch.log(torch.exp(-0.5 * d1)/(torch.sum(torch.exp(-0.5 * d1) + 1e-7,dim=-1).unsqueeze(-1))**1e-7)
+    distances2 = - torch.log(torch.exp(-0.5 * d2)/(torch.sum(torch.exp(-0.5 * d2) + 1e-7,dim=-1).unsqueeze(-1))**1e-7)
 
-    return torch.mean(d1)
+    return (torch.sum(distances1) + torch.sum(distances2)) / 2
 
 
 
-# distances = distances.clamp(-1 + eps, 1 - eps)
-def arcosh(x, eps=1e-5):  # pragma: no cover
-    # x = x.clamp(-1 + eps, 1 - eps)
-    # x = x.clamp(1,)
-    x = torch.clamp(x, min=1 + eps)
-    return torch.log(x + torch.sqrt(1 + x) * torch.sqrt(x - 1))
+def calc_cd_one_side_like_InfoV2(p1, p2):
+
+    dist1, dist2, idx1, idx2 = chamfer_dist(p1, p2)
+    dist1 = torch.clamp(dist1, min=1e-9)
+    dist2 = torch.clamp(dist2, min=1e-9)
+    d1 = torch.sqrt(dist1)
+    d2 = torch.sqrt(dist2)
+
+
+    distances1 = - torch.log(torch.exp(-0.5 * d1)/(torch.sum(torch.exp(-0.5 * d1) + 1e-7,dim=-1).unsqueeze(-1))**1e-7)
 
 
 
-
-
-
+    return torch.sum(distances1)
 
 
 
