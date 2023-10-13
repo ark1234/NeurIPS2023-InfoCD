@@ -85,7 +85,7 @@ The testing process is very similar to that on PCN:
 
 ## Acknowledgement
 
-Code is borrowed from SeedFormer, HyperCD loss can be found in loss_utils.py, This loss can be easily implement to other networks such as PointAttN and CP-Net. 
+Code is borrowed from SeedFormer, InfoCD loss can be found in loss_utils.py, This loss can be easily implement to other networks such as PointAttN and CP-Net. 
 
 
 ## Publication
