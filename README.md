@@ -98,12 +98,11 @@ Please cite our papers if you use our idea or code:
 ```
 @inproceedings{
 lin2023infocd,
-title={InfoCD: A Contrastive Chamfer Distance Loss for Point Cloud Completion},
-author={Fangzhou Lin and Yue Yun and Ziming Zhang and Songlin Hou and Kazunori D Yamada and Vijaya Kolachalama and Venkatesh Saligrama},
-booktitle={Advances in Neural Information Processing Systems},
-editor={},
+title={Info{CD}: A Contrastive Chamfer Distance Loss for Point Cloud Completion},
+author={Fangzhou Lin and Yun Yue and Ziming Zhang and Songlin Hou and Kazunori Yamada and Vijaya B Kolachalama and Venkatesh Saligrama},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
 year={2023},
-url={}
+url={https://openreview.net/forum?id=w7LxAZfDfv}
 }
 
 ```
